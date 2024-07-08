@@ -34,7 +34,7 @@ def train_arima_model(train_data):
 
 # forecasting
 def forecast(model, steps):
-    forecast = model.forecast(steps=forecast_horizon)
+    forecast = model.forecast(steps = forecast_horizon)
     return forecast
 
 # evaluation
