@@ -20,12 +20,6 @@ def l_p_data(file_path):
         df = pd.DataFrame({'value': [float(num) for num in numbers]})
         return df
 
-# feature extraction 
-def create_features(df):
-  df['rolling_mean_7'] = df['value'].rolling(window=7).mean()
-  df['lag_1'] = df['value'].shift(1)
-  return df.dropna()
-
 # data splitting
 def split_data(df, train_size=0.8):
     train = df[:int(len(df)*train_size)]
@@ -51,7 +45,6 @@ def evaluate_forecast(actual, predicted):
 # main execution and run the project
 if __name__ == '__main__':
     df = l_p_data('data.pdf')
-    df = create_features(df)
     train, test = split_data(df)
     model = train_arima_model(train)
     forecast_horizon = 20
