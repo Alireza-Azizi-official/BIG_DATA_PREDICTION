@@ -18,20 +18,13 @@ def l_p_data(file_path):
         # Use regex to find numeric values
         numbers = re.findall(r'\d+\.?\d*', text)
         df = pd.DataFrame({'value': [float(num) for num in numbers]})
-        
-        # Print column names and shape for debugging
-        print("Columns:", df.columns)
-        print("Shape:", df.shape)
-        
-        df = df.fillna()
-        
         return df
 
-# feature extraction
+# feature extraction 
 def create_features(df):
-    df['lag_1'] = df['value'].shift(1)
-    df['rolling_mean_7'] = df['value'].rolling(window=7).mean()
-    return df.dropna()
+  df['rolling_mean_7'] = df['value'].rolling(window=7).mean()
+  df['lag_1'] = df['value'].shift(1)
+  return df.dropna()
 
 # data splitting
 def split_data(df, train_size=0.8):
@@ -47,7 +40,7 @@ def train_arima_model(train_data):
 
 # forecasting
 def forecast(model, steps):
-    forecast = model.forecast(steps=steps)
+    forecast = model.forecast(steps=forecast_horizon)
     return forecast
 
 # evaluation
